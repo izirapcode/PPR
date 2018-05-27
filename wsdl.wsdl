@@ -1,0 +1,36 @@
+<?xml version ='1.0' encoding ='UTF-8' ?>
+
+<definitions name='Example' 
+	targetNamespace='http://localhost/example.wsdl' 
+	xmlns:tns='http://localhost/example.wsdl' 
+	xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/' 
+	xmlns='http://schemas.xmlsoap.org/wsdl/'
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" > 
+    
+    <message name="passString">
+        <part name="input" type="xs:string"/>
+    </message>
+    
+    <portType name="stringPort">
+        <operation name="stringPass">
+            <input message="tns:passString"/>
+        </operation>
+    </portType>
+    
+    <binding type="tns:stringPort" name="bind1">
+    <soap:binding style='rpc' transport='http://schemas.xmlsoap.org/soap/http'/> 
+    <operation name='stringPass'> 
+		<soap:operation soapAction='stringPass'/> 
+		<input> 
+		  <soap:body  use="literal" namespace='urn:localhost-example' /> 
+		</input> 
+	  </operation>  
+    </binding>
+    
+    <service name='ExampleService'> 
+	  <port name='ExamplePort' binding='tns:bind1'> 
+		<soap:address location='http://localhost'/> 
+	  </port> 
+	</service>
+    
+</definitions>
